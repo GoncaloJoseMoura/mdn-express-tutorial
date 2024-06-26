@@ -1,0 +1,30 @@
+<h1>Author: <%= author.name %></h1>
+<% if(author.date_of_birth_formatted && author.date_of_death_formatted) { %>
+<p> (<%= author.date_of_birth_formatted %> - <%= author.date_of_death_formatted %>)</p>
+<% } else if(author.date_of_birth_formatted) { %>
+<p>(<%= author.date_of_birth_formatted %> - present)</p>
+<% } %>
+
+<div style='margin-left:20px; margin-top:20px'>
+  <h2 style='font-size: 1.5rem;'>Books</h2>
+  <% if (author_books.length) { %>
+  <dl>
+    <% author_books.forEach(book => { %>
+    <dt>
+      <a href="<%= book.url %>"><%= book.title %></a>
+    </dt>
+    <dd><%= book.summary %></dd>
+    </dd>
+    <% }); %>
+  </dl>
+  <% } else { %>
+  <p>This author has no books</p>
+  <% } %>
+</div>
+<hr>
+<p>
+  <a href="<%= author.url+'/update' %>">Update Author</a>
+</p>
+<p>
+  <a href="<%= author.url+'/delete' %>">Delete Author</a>
+</p>

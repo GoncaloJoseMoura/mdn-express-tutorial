@@ -1,0 +1,45 @@
+<h1>Title: <%= title %></h1>
+<p>
+  <strong>Author: </strong>
+  <a href="<%= book.author.url %>"><%= book.author.name %></a>
+</p>
+<p><strong>Summary: </strong><%= book.summary %></p>
+<p><strong>ISBN: </strong><%= book.isbn %></p>
+<p>
+  <strong>Genre: </strong>
+  <% book.genre.forEach((genre, index) => { %>
+  <a href="<%= genre.url %>"
+    ><%= genre.name %> <% if(index < book.genre.length -1) { %> ,&nbsp; <% } %>
+  </a>
+  <% }) %>
+</p>
+
+<div style="margin-left: 20px; margin-top: 20px">
+  <h2 style="font-size: 1.5rem">Copies</h2>
+  <% if(book_instances.length) { %> <% book_instances.forEach(book => { %>
+  <hr />
+  <% if(book.status === 'Available') { %>
+  <p class="text-success"><%= book.status %></p>
+  <% } else if(book.status === 'Maintenance') { %>
+  <p class="text-danger"><%= book.status %></p>
+  <% } else { %>
+  <p class="text-warning"><%= book.status %></p>
+  <p><strong>Imprint: <%= book.imprint %></strong></p>
+  <% } %> <% if(book.status !== "Available") { %>
+  <p><strong>Due back: </strong><%= book.due_back %></p>
+  <% } %>
+  <p>
+    <strong>Id: </strong>
+    <a href="<%= book.url %>"><%= book._id %></a>
+  </p>
+  <% }) %> <% } else { %>
+  <p>There are no copies of this book in this library</p>
+  <% } %>
+</div>
+<hr />
+<p>
+  <a href="<%= book.url+'/update' %>">Update Book</a>
+</p>
+<p>
+  <a href="<%= book.url+'/delete' %>">Delete Book</a>
+</p>
